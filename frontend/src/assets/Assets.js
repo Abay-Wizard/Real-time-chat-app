@@ -12,6 +12,8 @@ import logo from './logo_icon.jpeg'
 import menu from './menu_icon.png'
 import menu2 from './menu.webp'
 import search from './search.png'
+import help from './help.png'
+import arrow from './arrow_icon.png'
 const assets={
     iphone,
     nature1,
@@ -26,6 +28,8 @@ const assets={
     logo,
     menu,
     menu2,
-    search
+    search,
+    help,
+    arrow
 }
 export {assets}
