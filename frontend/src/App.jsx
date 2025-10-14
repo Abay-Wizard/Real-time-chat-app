@@ -5,10 +5,11 @@ import Home from './pages/Home'
 import SignUp from './pages/SignUp'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
-import Settings from './pages/Settings'
 import { userAuthStore } from './store/userAuthStore'
 import { useEffect } from 'react'
 import { Loader } from 'lucide-react'
+import Footer from './components/Footer'
+import { Toaster } from 'react-hot-toast'
 function App() {
    const {authUser,checkAuth,isChekingAuth} =userAuthStore()
    useEffect(()=>{
@@ -23,17 +24,18 @@ function App() {
     )
    }
   return (
-    <div>
+    <div className='flex flex-col min-h-screen'>
       <Navbar/>
-      <main>
+      <main className='flex-grow'>
         <Routes>
           <Route path='/' element={authUser ? <Home/> : <Navigate to='/login' />}/>
-          <Route path='/signup' element={!authUser ? <SignUp/> : <Navigate to='/' />}/>
+          <Route path='/signup' element={!authUser ? <SignUp/>:<Navigate to ='/'/>}/>
           <Route path='/login' element={!authUser ? <Login/> : <Navigate to='/' />}/>
-          <Route path='/profile' element={authUser ? <Profile/> :<Navigate to='/login' />}/>
-          <Route path='/settings' element={<Settings/>}/>
+          <Route path='/profile' element={<Profile/>}/>
         </Routes>
       </main>
+      <Footer />
+      <Toaster/>
     </div>
   )
 }

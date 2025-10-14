@@ -85,7 +85,7 @@ const updateProfile = async (req, res) => {
         const updatedUser = await User.findByIdAndUpdate(userId, { profilePic: cloudResponse.secure_url }, { new: true })
         res.status(201).json({ success: true, message: "user updated successfuly!", data: updatedUser })
     } catch (error) {
-        console.log(error.message)
+        console.log(error)
         res.status(500).json({ success: false, message: "Internal server error!" })
     }
 }

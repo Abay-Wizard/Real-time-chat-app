@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
+import { Sun, Moon } from "lucide-react";
 
-const ThemeSwitcher = ()=> {
+const ThemeSwitcher = () => {
   const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
+
+  const isDark = theme === "dark";
+
+  const toggleTheme = () => {
+    const newTheme = isDark ? "light" : "dark";
+    setTheme(newTheme);
+  };
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -9,18 +17,17 @@ const ThemeSwitcher = ()=> {
   }, [theme]);
 
   return (
-    <select
-      className="select select-bordered select-sm"
-      value={theme}
-      onChange={(e) => setTheme(e.target.value)}
+    <div
+      onClick={toggleTheme}
+      className="cursor-pointer p-2 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center"
     >
-      <option value="light">Light</option>
-      <option value="dark">Dark</option>
-      <option value="cupcake">Cupcake</option>
-      <option value="dracula">Dracula</option>
-      <option value="forest">Forest</option>
-    </select>
+      {isDark ? (
+        <Sun size={20} className="text-yellow-400" /> // Bright Sun in dark mode
+      ) : (
+        <Moon size={20} className="text-gray-800" />  // Dark Moon in light mode
+      )}
+    </div>
   );
-}
+};
 
-export default ThemeSwitcher
+export default ThemeSwitcher;
