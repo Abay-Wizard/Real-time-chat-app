@@ -5,9 +5,10 @@ import cookieParser from 'cookie-parser'
 import connectDB from './config/db.js'
 import authRoute from './routes/authRoute.js'
 import messageRoute from './routes/messageRoute.js'
+import {app,server} from './lib/socket.js'
 dotenv.config()
 
-const app =express()
+//const app =express()
 app.use(cors({
     origin:'http://localhost:5173',
     credentials:true
@@ -19,7 +20,7 @@ app.use('/api/message',messageRoute)
 
 
 connectDB().then(()=>{
-    app.listen(5000,()=>{
+    server.listen(5000,()=>{
     console.log('Server is running on port 5000 ...')
 })
 })

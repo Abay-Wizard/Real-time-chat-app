@@ -1,17 +1,22 @@
 import { create } from 'zustand'
 import axiosInstance from '../lib/axios.js'
 import toast from 'react-hot-toast'
-export const userAuthStore = create((set) => ({
+import {io} from 'socket.io-client'
+const baseURL='http://localhost:5000'
+
+export const userAuthStore = create((set,get) => ({
     authUser: null,
     isSigningUp: false,
     onlineUsers:[],
     isLoggingIn: false,
     isUpdatingProfile: false,
     isCheckingAuth: true,
+    socket:null,
     checkAuth: async () => {
         try {
             const res = await axiosInstance.get('/auth/check')
             set({ authUser: res.data.data })
+            get().connectSocket()
         } catch (error) {
             console.log(error)
             set({ authUser: null })
@@ -24,7 +29,8 @@ export const userAuthStore = create((set) => ({
         try {
             const res = await axiosInstance.post('/auth/register', data)
             if (res.data.success) {
-                set({ authUser: res.data.data })
+                set({authUser:{...res.data.data}})
+                get().connectSocket()
                 toast.success(res.data.message)
 
             }
@@ -41,6 +47,7 @@ export const userAuthStore = create((set) => ({
         const res=await axiosInstance.post('/auth/logout')
         if(res.data.success){
             set({authUser:null})
+            get().disconnectSocket()
             toast.success(res.data.message)
         }
        } catch (error) {
@@ -53,7 +60,9 @@ export const userAuthStore = create((set) => ({
         try {
             const res=await axiosInstance.post('/auth/login',data)
             if(res.data.success){
-                set({authUser:res.data.data})
+                const response=await axiosInstance.get('/auth/check')
+                set({authUser:{...response.data.data}})
+                 get().connectSocket()
                 toast.success(res.data.message)
             }
         } catch (error) {
@@ -77,5 +86,27 @@ export const userAuthStore = create((set) => ({
         } finally{
             set({isUpdatingProfile:false})
         }
+    },
+    connectSocket:()=>{
+        const {authUser}=get()
+        if(!authUser || get().socket?.connected) return;
+        const socket=io(baseURL,{
+            query:{
+                userId:authUser._id
+            }
+        })
+        socket.connect()
+        set({socket})
+        socket.on('getOnlineUsers',(userIds)=>{
+            set({onlineUsers:userIds})
+        })
+    },
+
+    disconnectSocket:()=>{
+        const {socket}=get()
+        if(socket){
+            socket.disconnect()
+        }
+        set({socket:null})
     }
 }))

@@ -44,7 +44,7 @@ const Navbar = () => {
                     alt="user avatar"
                     src={
                       authUser?.profilePic ||
-                      "https://media.gettyimages.com/id/1317804578/photo/one-businesswoman-headshot-smiling-at-the-camera.jpg?s=612x612&w=gi&k=20&c=tFkDOWmEyqXQmUHNxkuR5TsmRVLi5VZXYm3mVsjee0E="
+                      "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80"
                     }
                   />
                 </div>
@@ -59,11 +59,6 @@ const Navbar = () => {
                     <User size={16} /> Profile
                   </a>
                 </li>
-                <li onClick={() => navigate("/settings")}>
-                  <a className="flex items-center gap-2 hover:bg-primary/10 transition-colors">
-                    <Settings size={16} /> Settings
-                  </a>
-                </li>
                 <li>
                   <button
                     onClick={logout}
@@ -75,9 +70,30 @@ const Navbar = () => {
               </ul>
             </div>
           ) : (
-            <button className="rounded-lg px-2 py-1 bg-purple-500" onClick={()=>navigate('/signup')}>
-               SignUp
+            <button
+              onClick={() => navigate('/signup')}
+              className="
+    rounded-xl
+    px-6
+    py-2
+    bg-gradient-to-r from-purple-500 to-indigo-500
+    text-white
+    font-semibold
+    shadow-lg
+    hover:shadow-xl
+    hover:scale-105
+    transition
+    duration-300
+    ease-in-out
+    focus:outline-none
+    focus:ring-2
+    focus:ring-purple-400
+    focus:ring-offset-2
+  "
+            >
+              Sign Up
             </button>
+
           )}
         </div>
       </div>

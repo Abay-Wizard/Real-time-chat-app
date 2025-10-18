@@ -11,11 +11,12 @@ import { Loader } from 'lucide-react'
 import Footer from './components/Footer'
 import { Toaster } from 'react-hot-toast'
 function App() {
-   const {authUser,checkAuth,isChekingAuth} =userAuthStore()
+   const {authUser,checkAuth,isChekingAuth,onlineUsers} =userAuthStore()
    useEffect(()=>{
     checkAuth()
    },[])
-  console.log(authUser)
+  //console.log(authUser)
+  console.log(onlineUsers)
    if(isChekingAuth && !authUser){
     return (
       <div className='flex items-center justify-center h-screen'>
