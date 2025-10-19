@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import axiosInstance from '../lib/axios.js'
 import toast from 'react-hot-toast'
 import {io} from 'socket.io-client'
-const baseURL='http://localhost:5000'
+const baseURL='https://real-time-chat-app-1-bv19.onrender.com'
 
 export const userAuthStore = create((set,get) => ({
     authUser: null,
