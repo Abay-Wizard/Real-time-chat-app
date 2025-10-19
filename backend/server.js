@@ -10,7 +10,7 @@ dotenv.config()
 
 //const app =express()
 app.use(cors({
-    origin:'https://nilechat-jpenejxnq-abays-projects-d9328cca.vercel.app',
+    origin:'https://real-time-chat-app-fawn-two.vercel.app',
     credentials:true
 }))
 app.use(express.json({ limit: "50mb" }));

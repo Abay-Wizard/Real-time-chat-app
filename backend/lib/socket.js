@@ -6,7 +6,7 @@ const app=express()
 const server=http.createServer(app)
 const io=new Server(server,{
     cors:{
-        origin:['https://nilechat-jpenejxnq-abays-projects-d9328cca.vercel.app']
+        origin:['https://real-time-chat-app-fawn-two.vercel.app']
     }
 })
 
