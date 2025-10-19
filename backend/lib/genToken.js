@@ -6,7 +6,8 @@ const generateToken=(userId,res)=>{
         maxAge:7*24*60*60*1000, //MS
         sameSite:"strict",
         httpOnly:true, //
-        secure:process.env.NODE_ENV !=='development'
+        secure:false
+        //process.env.NODE_ENV !=='development'
     })
 
     return token;
