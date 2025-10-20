@@ -31,6 +31,7 @@ const getMessages=async(req,res)=>{
     }
 }
 
+
 const sendMessage=async(req,res)=>{
     try {
         const {text,image} =req.body
@@ -49,10 +50,9 @@ const sendMessage=async(req,res)=>{
           image:imageUrl  
         })
 
-        await newMessage.save()
-        //todo: real time functionality with socket.io
+        await newMessage.save() //sending our message data to database not to a specific user yet
         const receiverSocketId=getReceiverSocketId(receiverId)
-        if(receiverSocketId){
+        if(receiverSocketId){//this piece of code sends the message to the intended user in realtime.
             io.to(receiverSocketId).emit('newMessage',newMessage)
         }
         res.status(201).json({success:true,message:'message sent', data:newMessage})

@@ -9,7 +9,7 @@ import formatMessageDate from "../lib/utills";
 const ChatContainer = () => {
     const { messages, fetchMessages, selectedUser, isLoadingMessages, subscribeToMessage, unsubscribFromMessage } = messageStore();
     const { authUser } = userAuthStore();
-    const messageEndRef = useRef(null)
+    //const messageEndRef = useRef(null)
 
     useEffect(() => {
 
@@ -19,13 +19,13 @@ const ChatContainer = () => {
 
 
     }, [selectedUser._id, fetchMessages, subscribeToMessage, unsubscribFromMessage]);
-
+{/*
     useEffect(() => {
         if (messageEndRef.current && messages) {
             messageEndRef.current.scrollIntoView({ behavior: 'smooth' })
         }
 
-    }, [messages])
+    }, [messages])*/}
 
     if (isLoadingMessages)
         return (
